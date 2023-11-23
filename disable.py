@@ -4,8 +4,8 @@ import os
 import sys 
 
 domain = sys.argv[1]
-sourceou = sys.argv[3]
-destinationou = sys.argv[4]
+sourceou = sys.argv[2]
+destinationou = sys.argv[3]
 
 ssm_file = open("cut_off_ssm.json")
 ssm_json = ssm_file.read()
