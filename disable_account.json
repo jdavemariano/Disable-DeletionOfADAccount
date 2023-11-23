@@ -2,11 +2,6 @@
   "schemaVersion": "2.2",
   "description": "Command Document Example JSON Template",
   "parameters": {
-    "mainOU": {
-      "type": "String",
-      "description": "Domain Name",
-      "default": ""
-    },
     "destinationOU": {
       "type": "String",
       "description": "Disable OU Location",
@@ -25,7 +20,6 @@
       "inputs": {
         "runCommand": [
           "",
-          "$mainOU = {{mainOU}}",
           "$sourceOU = {{sourceOU}}",
           "destinationOU = {{destinationOU}}",
           "",
