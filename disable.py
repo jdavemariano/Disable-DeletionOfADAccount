@@ -7,7 +7,7 @@ domain = sys.argv[1]
 sourceou = sys.argv[2]
 destinationou = sys.argv[3]
 
-ssm_file = open("cut_off_ssm.json")
+ssm_file = open("disable_account.json")
 ssm_json = ssm_file.read()
 
 target_username = username
