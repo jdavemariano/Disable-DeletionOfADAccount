@@ -10,12 +10,10 @@ destinationou = sys.argv[3]
 ssm_file = open("disable_account.json")
 ssm_json = ssm_file.read()
 
-target_username = username
-
 instance_ids = {
 	"deltekdev":"i-04d0e953afe07b3a3",
 	"costpoint":"i-0e82a12d1ef934425",
-    #"DCO":"i-0fe3ff3ff41c18b17",
+        #"DCO":"i-0fe3ff3ff41c18b17",
 	#"Flexplus":"i-0f2717bceb18eea6f",
 	#"GlobalOSS":"i-04b225ae477c52288",
 	#"Engdeltek":"i-0667aa10a44eafc7c",
