@@ -4,7 +4,6 @@ import os
 import sys 
 
 domain = sys.argv[1]
-mainou = sys.argv[2]
 sourceou = sys.argv[3]
 destinationou = sys.argv[4]
 
@@ -29,7 +28,7 @@ ssm_client = boto3.client('ssm', region_name="us-east-1")
 
 ssm_create_response = ssm_client.create_document(Content = ssm_json, Name = ssm_doc_name, DocumentType = 'Command', DocumentFormat = 'JSON', TargetType =  "/AWS::EC2::Instance")
 
-ssm_run_response = ssm_client.send_command(InstanceIds = [target_domain], DocumentName=ssm_doc_name, DocumentVersion="$DEFAULT", TimeoutSeconds=120,  Parameters={'mainOU':[mainou],'destinationOU':[destinationou],'sourceOU':[sourceou],})
+ssm_run_response = ssm_client.send_command(InstanceIds = [target_domain], DocumentName=ssm_doc_name, DocumentVersion="$DEFAULT", TimeoutSeconds=120,  Parameters={'destinationOU':[destinationou],'sourceOU':[sourceou],})
 print(f'{ssm_run_response}\n')
 cmd_id = ssm_run_response['Command']['CommandId']
 
