@@ -21,14 +21,12 @@
         "runCommand": [
           "",
           "$sourceOU = {{sourceOU}}",
-          "destinationOU = {{destinationOU}}",
-          "",
+          "$destinationOU = {{destinationOU}}",
           "$disabledAccount = Get-ADUser -Filter {Enabled -eq $false -and EmailAddress -like '*@test1.com'} -SearchBase $source0U",
-          "",
           "foreach ($account in $disabledAccount){",
           "    Move-ADObject -Identity $account -TargetPath $destinationOU",
           "    Disable-ADAccount -Identity $account.SamAccountName",
-          "    Write-Host "Account $($account.SamAccountName) moved to $destinationOU and disabled" ",
+          "    Write-Host 'Account $($account.SamAccountName) moved to $destinationOU and disabled' ",
           "}",
           "",
         ]
