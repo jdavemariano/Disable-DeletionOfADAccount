@@ -28,7 +28,7 @@
           "    Disable-ADAccount -Identity $account.SamAccountName",
           "    Write-Host 'Account $($account.SamAccountName) moved to $destinationOU and disabled' ",
           "}",
-          "",
+          ""
         ]
       }
     }
