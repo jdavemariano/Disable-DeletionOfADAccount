@@ -13,10 +13,10 @@ ssm_json = ssm_file.read()
 instance_ids = {
 	"deltekdev":"i-04d0e953afe07b3a3",
 	"costpoint":"i-0e82a12d1ef934425",
-        #"DCO":"i-0fe3ff3ff41c18b17",
-	#"Flexplus":"i-0f2717bceb18eea6f",
-	#"GlobalOSS":"i-04b225ae477c52288",
-	#"Engdeltek":"i-0667aa10a44eafc7c",
+        "DCO":"i-0fe3ff3ff41c18b17",
+	"Flexplus":"i-0f2717bceb18eea6f",
+	"GlobalOSS":"i-04b225ae477c52288",
+	"Engdeltek":"i-0667aa10a44eafc7c",
 }
 
 target_domain = instance_ids[domain]
@@ -38,5 +38,11 @@ while ssm_status_response['StatusDetails'] == 'InProgress':
 
 if ssm_status_response['StatusDetails'] == 'Success':
 	print(f'User {target_username} has been unlocked in {target_domain}\n')
+
+cmd_output = ssm_status_response.get('StandardOutputContent','')
+print(f'{cmd_output}\n')
+
+with open('Disabled_AD_Account.txt', 'w') as outfile:
+	outfile.write(cmd_output)
 
 ssm_delete_response = ssm_client.delete_document(Name=ssm_doc_name)
