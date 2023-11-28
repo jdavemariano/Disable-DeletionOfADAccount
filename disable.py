@@ -37,7 +37,7 @@ while ssm_status_response['StatusDetails'] == 'InProgress':
 	ssm_status_response = ssm_client.get_command_invocation(CommandId=cmd_id, InstanceId=target_domain)
 
 if ssm_status_response['StatusDetails'] == 'Success':
-	print(f'User {target_username} has been unlocked in {target_domain}\n')
+	print('Powershell script for Disabling Expired Accounts has been unlocked in {target_domain}\n')
 
 cmd_output = ssm_status_response.get('StandardOutputContent','')
 print(f'{cmd_output}\n')
