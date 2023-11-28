@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "2.2",
+  "description": "Command Document Example JSON Template",
+  "parameters": {
+    "destinationOU": {
+      "type": "String",
+      "description": "Expired accounts OU Location",
+      "default": ""
+    },
+    "sourceOU": {
+      "type": "String",
+      "description": "Scan Scope",
+      "default": ""
+    }
+  },
+  "mainSteps": [
+    {
+      "action": "aws:runPowerShellScript",
+      "name": "ScanExpiredAccounts",
+      "inputs": {
+        "runCommand": [
+          "",
+          "$disabledAccount = Get-ADUser -Filter {Enabled -eq $false -and EmailAddress -like '*@test1.com'} -SearchBase '{{sourceOU}}' ",
+          "foreach ($account in $disabledAccount){",
+          "    Disable-ADAccount -Identity $account.SamAccountName",
+          "    Move-ADObject -Identity $account.DistinguishedName -TargetPath '{{destinationOU}}'",
+          "    $account | Select-Object SamAccountName, Name, AccountExpirationDate, Enabled, DistinguishedName",
+          "    Write-Host 'Account $account.DistinguishedName has been permanently deleted from OU'",
+          "}",
+          ""
+        ]
+      }
+    }
+  ]
+}
