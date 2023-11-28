@@ -20,13 +20,12 @@
       "inputs": {
         "runCommand": [
           "",
-          "$destinationOU = {{destinationOU}}",
-          "$disabledAccount = Get-ADUser -Filter {Enabled -eq $true -and EmailAddress -like '*@test1.com'} -SearchBase '{{sourceOU}}' ",
+          "$disabledAccount = Get-ADUser -Filter {Enabled -eq $false -and EmailAddress -like '*@test1.com'} -SearchBase '{{sourceOU}}' ",
           "$disabledAccount",
           "foreach ($account in $disabledAccount){",
-          "    Move-ADObject -Identity $account -TargetPath $destinationOU",
+          "    Move-ADObject -Identity $account.DistinguishedName -TargetPath '{{destinationOU}}'",
           "    Disable-ADAccount -Identity $account.SamAccountName",
-          "    echo 'Account $($account.SamAccountName) moved to $destinationOU and disabled' ",
+          "    Write-Host 'Account $($account.SamAccountName) moved to $destinationOU and disabled' ",
           "}",
           ""
         ]
