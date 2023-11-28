@@ -1,10 +1,12 @@
 import boto3
+import os
+import sys
 from datetime import datetime
 
 def upload_file_to_s3(file_path, bucket_name):
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     file_name, file_extension = file_path.split('.')
-    new_file_name = f"{file_name}_{timestamp}.{file_extension}"
+    new_file_name = f"{domain}_{file_name}_{timestamp}.{file_extension}"
 
     s3 = boto3.client('s3')
     try:
@@ -16,5 +18,5 @@ def upload_file_to_s3(file_path, bucket_name):
 
 if __name__ == "__main__":
     bucket_name = "ad-user-disable-logs"
-    file_path = "Disabled_AD_Account.txt"
+    file_path = "Deleted_AD_Account.txt"
     upload_file_to_s3(file_path, bucket_name)
