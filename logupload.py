@@ -16,5 +16,5 @@ def upload_file_to_s3(file_path, bucket_name):
 
 if __name__ == "__main__":
     bucket_name = "ad-user-disable-logs"
-    file_path = "Disabled_AD_Account.txt"
+    file_path = "Deleted_AD_Account.txt"
     upload_file_to_s3(file_path, bucket_name)
