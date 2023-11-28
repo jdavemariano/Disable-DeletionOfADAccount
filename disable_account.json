@@ -27,7 +27,7 @@
           "foreach ($account in $disabledAccount){",
           "    Move-ADObject -Identity $account -TargetPath $destinationOU",
           "    Disable-ADAccount -Identity $account.SamAccountName",
-          "    Write-Host 'Account $($account.SamAccountName) moved to $destinationOU and disabled' ",
+          "    echo 'Account $($account.SamAccountName) moved to $destinationOU and disabled' ",
           "}",
           ""
         ]
