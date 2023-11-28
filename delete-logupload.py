@@ -3,6 +3,8 @@ import os
 import sys
 from datetime import datetime
 
+domain = sys.argv[1]
+
 def upload_file_to_s3(file_path, bucket_name):
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     file_name, file_extension = file_path.split('.')
