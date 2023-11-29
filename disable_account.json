@@ -23,6 +23,7 @@
           "$disabledAccount = Get-ADUser -Filter {EmailAddress -like '*@deltek.com'} -SearchBase '{{sourceOU}}' -Properties AccountExpirationDate | Where-Object { $_.AccountExpirationDate -ne $null -and $_.AccountExpirationDate -lt (Get-Date) } ",
           "foreach ($account in $disabledAccount){",
           "    Get-ADUser -Identity $account -Properties DisplayName, EmailAddress, AccountExpirationDate| Select-Object DisplayName, EmailAddress, AccountExpirationDate",
+          "    Write-Host 'Account '+ $account.DistinguishedName +' moved to {{destinationOU}} and disabled' ",
           "}",
           ""
         ]
