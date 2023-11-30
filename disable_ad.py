@@ -7,7 +7,7 @@ domain = sys.argv[1]
 
 # Read JSON file
 with open("domain_accounts.json") as json_file:
-    config = json.load(json_file)
+    config = json.load(domain_accounts.json)
     instance_info = config.get(domain)
 
 if not instance_info:
