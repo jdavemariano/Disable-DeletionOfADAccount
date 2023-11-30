@@ -20,12 +20,12 @@ if not instance_info:
     sys.exit(1)
 
 target_instance = instance_info.get("target_instance", "")
-sourceou = instance_info.get("sourceou", "")
+disableou = instance_info.get("disableou", "")
 
 print(f"Target Instance: {target_instance}")
-print(f"Source OU: {sourceou}")
+print(f"Disable OU: {disableou}")
 
-if not target_instance or not sourceou or not destinationou:
+if not target_instance or not sourceou or not destinationou or not disableou:
     print(f"Missing required parameters for domain '{domain}'.")
     sys.exit(1)
 
@@ -34,18 +34,18 @@ ssm_client = boto3.client('ssm', region_name="us-east-1")
 
 ssm_create_response = ssm_client.create_document(Content = ssm_json, Name = ssm_doc_name, DocumentType = 'Command', DocumentFormat = 'JSON', TargetType =  "/AWS::EC2::Instance")
 
-ssm_run_response = ssm_client.send_command(InstanceIds = [target_domain], DocumentName=ssm_doc_name, DocumentVersion="$DEFAULT", TimeoutSeconds=120,  Parameters={'sourceOU':[sourceou],})
+ssm_run_response = ssm_client.send_command(InstanceIds = [target_instance], DocumentName=ssm_doc_name, DocumentVersion="$DEFAULT", TimeoutSeconds=120,  Parameters={'sourceOU':[disableou],})
 print(f'{ssm_run_response}\n')
 cmd_id = ssm_run_response['Command']['CommandId']
 
 time.sleep(5)
-ssm_status_response = ssm_client.get_command_invocation(CommandId=cmd_id, InstanceId=target_domain)
+ssm_status_response = ssm_client.get_command_invocation(CommandId=cmd_id, InstanceId=target_instance)
 while ssm_status_response['StatusDetails'] == 'InProgress':
 	time.sleep(5)
-	ssm_status_response = ssm_client.get_command_invocation(CommandId=cmd_id, InstanceId=target_domain)
+	ssm_status_response = ssm_client.get_command_invocation(CommandId=cmd_id, InstanceId=target_instance)
 
 if ssm_status_response['StatusDetails'] == 'Success':
-	print('Scipt Executed on Deleting Expired Accounts for more than 18 months in {target_domain}\n')
+	print("Scipt Executed on Deleting Expired Accounts for more than 18 months in '{domain}'\n")
 
 cmd_output = ssm_status_response.get('StandardOutputContent','')
 print(f'{cmd_output}\n')
