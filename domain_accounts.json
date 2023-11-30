@@ -29,4 +29,10 @@
     "destinationou" : "OU=Disabled,OU=UserAccounts,DC=mydeltek,DC=local",
     "disableou" : "OU=Disabled,OU=UserAccounts,DC=mydeltek,DC=local"
   }
+    "engdeltek": {
+    "target_instance": "i-0667aa10a44eafc7c",
+    "sourceou": "DC=engdeltek,DC=local",
+    "destinationou" : "OU=Disabled,OU=UserAccounts,DC=engdeltek,DC=local",
+    "disableou" : "OU=Disabled,OU=UserAccounts,DC=engdeltek,DC=local"
+  }
 }
