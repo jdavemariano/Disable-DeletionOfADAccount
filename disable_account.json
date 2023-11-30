@@ -22,9 +22,9 @@
           "",
           "$disabledAccount = Get-ADUser -Filter {Title -eq 'AutoExpireEnabled'} -SearchBase '{{sourceOU}}' -Properties AccountExpirationDate | Where-Object { $_.AccountExpirationDate -ne $null -and $_.AccountExpirationDate -lt (Get-Date) } ",
           "foreach ($account in $disabledAccount){",
-          "    Move-ADObject -Identity $account -TargetPath $destinationOU",
           "    Disable-ADAccount -Identity $account.SamAccountName",
-          "    Get-ADUser -Identity $account -Properties DisplayName, EmailAddress, AccountExpirationDate| Select-Object DisplayName, EmailAddress, AccountExpirationDate",
+          "    Move-ADObject -Identity $account.DistinguishedName -TargetPath $destinationOU",
+          "    Get-ADUser -Identity $account -Properties DisplayName, EmailAddress, AccountExpirationDate, Enabled, DistinguishedName| Select-Object DisplayName, EmailAddress, AccountExpirationDate, Enabled, DistinguishedName",
           "    Write-Host 'Account '+ $account.SamAccountName +' moved to {{destinationOU}} and disabled' ",
           "}",
           ""
