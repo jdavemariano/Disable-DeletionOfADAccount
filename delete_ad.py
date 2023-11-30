@@ -25,7 +25,7 @@ disableou = instance_info.get("disableou", "")
 print(f"Target Instance: {target_instance}")
 print(f"Disable OU: {disableou}")
 
-if not target_instance or not sourceou or not destinationou or not disableou:
+if not target_instance or not disableou:
     print(f"Missing required parameters for domain '{domain}'.")
     sys.exit(1)
 
