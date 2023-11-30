@@ -9,15 +9,19 @@ domain = sys.argv[1]
 # Read JSON file
 with open("domain_accounts.json") as json_file:
     config = json.load(json_file)
-    instance_info = config.get(domain)
+    instance_info = config.get(domain,{})
 
 if not instance_info:
     print(f"Domain '{domain}' not found in configuration.")
     sys.exit(1)
 
-target_instance = instance_info["target_instance"]
-sourceou = instance_info["sourceou"]
-destinationou = instance_info["destinationou"]
+target_instance = instance_info.get("target_instance", "")
+sourceou = instance_info.get("sourceou", "")
+destinationou = instance_info.get("destinationou", "")
+
+if not target_instance or not sourceou or not destinationou:
+    print(f"Missing required parameters for domain '{domain}'.")
+    sys.exit(1)
 
 ssm_file = open("disable_account.json")
 ssm_json = ssm_file.read()
