@@ -1,24 +1,33 @@
 import boto3
 import time
 import os
-import sys 
+import sys
+import json
 
 domain = sys.argv[1]
-sourceou = sys.argv[2]
 
 ssm_file = open("delete_account.json")
 ssm_json = ssm_file.read()
 
-instance_ids = {
-	"deltekdev":"i-04d0e953afe07b3a3",
-	"costpoint":"i-0e82a12d1ef934425",
-        "DCO":"i-0fe3ff3ff41c18b17",
-	"Flexplus":"i-0f2717bceb18eea6f",
-	"GlobalOSS":"i-04b225ae477c52288",
-	"Engdeltek":"i-0667aa10a44eafc7c",
-}
+with open("domain_accounts.json") as json_file:
+    config = json.load(json_file)
+    instance_info = config.get(domain,{})
 
-target_domain = instance_ids[domain]
+print(f"Instance Info: {instance_info}")
+
+if not instance_info:
+    print(f"Domain '{domain}' not found in configuration.")
+    sys.exit(1)
+
+target_instance = instance_info.get("target_instance", "")
+sourceou = instance_info.get("sourceou", "")
+
+print(f"Target Instance: {target_instance}")
+print(f"Source OU: {sourceou}")
+
+if not target_instance or not sourceou or not destinationou:
+    print(f"Missing required parameters for domain '{domain}'.")
+    sys.exit(1)
 
 ssm_doc_name = 'delete_account'
 ssm_client = boto3.client('ssm', region_name="us-east-1")
