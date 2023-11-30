@@ -20,10 +20,12 @@
       "inputs": {
         "runCommand": [
           "",
-          "$disabledAccount = Get-ADUser -Filter {EmailAddress -like '*@deltek.com'} -SearchBase '{{sourceOU}}' -Properties AccountExpirationDate | Where-Object { $_.AccountExpirationDate -ne $null -and $_.AccountExpirationDate -lt (Get-Date) } ",
+          "$disabledAccount = Get-ADUser -Filter {Title -eq 'AutoExpireEnabled'} -SearchBase '{{sourceOU}}' -Properties AccountExpirationDate | Where-Object { $_.AccountExpirationDate -ne $null -and $_.AccountExpirationDate -lt (Get-Date) } ",
           "foreach ($account in $disabledAccount){",
+          "    Move-ADObject -Identity $account -TargetPath $destinationOU",
+          "    Disable-ADAccount -Identity $account.SamAccountName",
           "    Get-ADUser -Identity $account -Properties DisplayName, EmailAddress, AccountExpirationDate| Select-Object DisplayName, EmailAddress, AccountExpirationDate",
-          "    Write-Host 'Account '+ $account.DistinguishedName +' moved to {{destinationOU}} and disabled' ",
+          "    Write-Host 'Account '+ $account.SamAccountName +' moved to {{destinationOU}} and disabled' ",
           "}",
           ""
         ]
