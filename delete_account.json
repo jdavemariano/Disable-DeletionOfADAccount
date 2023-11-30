@@ -16,7 +16,7 @@
         "runCommand": [
           "",
           "$expirationThreshold = (Get-Date).AddMonths(-18)",
-          "$expiredAccounts = Get-ADUser -Filter { Enabled -eq $true -and AccountExpirationDate -le $expirationThreshold} -SearchBase '{{sourceOU}}' -Properties SamAccountName, AccountExpirationDate}",
+          "$expiredAccounts = Get-ADUser -Filter { Enabled -eq $false -and Title -eq 'AutoExpireEnabled' -and AccountExpirationDate -le $expirationThreshold} -SearchBase '{{sourceOU}}' -Properties SamAccountName, AccountExpirationDate}",
           "foreach ($account in $expiredAccounts){",
           "    $account | Select-Object SamAccountName, Name, AccountExpirationDate | Format-Table -AutoSize",
           "    Remove-ADUser -Identity $account.DistinguishedName",
