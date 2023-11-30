@@ -11,6 +11,8 @@ with open("domain_accounts.json") as json_file:
     config = json.load(json_file)
     instance_info = config.get(domain,{})
 
+print(f"Instance Info: {instance_info}")
+
 if not instance_info:
     print(f"Domain '{domain}' not found in configuration.")
     sys.exit(1)
