@@ -47,7 +47,7 @@ while ssm_status_response['StatusDetails'] == 'InProgress':
 	ssm_status_response = ssm_client.get_command_invocation(CommandId=cmd_id, InstanceId=target_instance)
 
 if ssm_status_response['StatusDetails'] == 'Success':
-	print('Powershell script for Disabling Expired Accounts has been executed in {domain}\n')
+	print(f"Powershell script for Disabling Expired Accounts has been executed in '{domain}'\n")
 
 cmd_output = ssm_status_response.get('StandardOutputContent','')
 print(f'{cmd_output}\n')
