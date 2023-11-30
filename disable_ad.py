@@ -21,6 +21,10 @@ target_instance = instance_info.get("target_instance", "")
 sourceou = instance_info.get("sourceou", "")
 destinationou = instance_info.get("destinationou", "")
 
+print(f"Target Instance: {target_instance}")
+print(f"Source OU: {sourceou}")
+print(f"Destination OU: {destinationou}")
+
 if not target_instance or not sourceou or not destinationou:
     print(f"Missing required parameters for domain '{domain}'.")
     sys.exit(1)
