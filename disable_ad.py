@@ -6,7 +6,6 @@ import json
 
 domain = sys.argv[1]
 
-# Read JSON file
 with open("domain_accounts.json") as json_file:
     config = json.load(json_file)
     instance_info = config.get(domain,{})
@@ -42,13 +41,13 @@ print(f'{ssm_run_response}\n')
 cmd_id = ssm_run_response['Command']['CommandId']
 
 time.sleep(5)
-ssm_status_response = ssm_client.get_command_invocation(CommandId=cmd_id, InstanceId=target_domain)
+ssm_status_response = ssm_client.get_command_invocation(CommandId=cmd_id, InstanceId=target_instance)
 while ssm_status_response['StatusDetails'] == 'InProgress':
 	time.sleep(5)
-	ssm_status_response = ssm_client.get_command_invocation(CommandId=cmd_id, InstanceId=target_domain)
+	ssm_status_response = ssm_client.get_command_invocation(CommandId=cmd_id, InstanceId=target_instance)
 
 if ssm_status_response['StatusDetails'] == 'Success':
-	print('Powershell script for Disabling Expired Accounts has been executed in {target_domain}\n')
+	print('Powershell script for Disabling Expired Accounts has been executed in {domain}\n')
 
 cmd_output = ssm_status_response.get('StandardOutputContent','')
 print(f'{cmd_output}\n')
