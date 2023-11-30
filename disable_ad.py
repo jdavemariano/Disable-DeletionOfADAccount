@@ -1,13 +1,14 @@
 import boto3
 import time
 import os
-import sys 
+import sys
+import json
 
 domain = sys.argv[1]
 
 # Read JSON file
 with open("domain_accounts.json") as json_file:
-    config = json.load(domain_accounts.json)
+    config = json.load(json_file)
     instance_info = config.get(domain)
 
 if not instance_info:
