@@ -20,7 +20,7 @@ if not instance_info:
     sys.exit(1)
 
 target_instance = instance_info.get("target_instance", "")
-disableou = instance_info.get("disableou", "")
+disableou = instance_info.get("destinationou", "")
 
 print(f"Target Instance: {target_instance}")
 print(f"Disable OU: {disableou}")
