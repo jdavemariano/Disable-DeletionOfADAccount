@@ -19,6 +19,8 @@ def upload_file_to_s3(file_path, bucket_name):
         # Delete the local file after successful upload
         os.remove(file_path)
         print(f"Local file deleted: {file_path}")
+
+        os.remove(new_file_name)
     except Exception as e:
         print(f"Error uploading file to S3: {e}")
 
