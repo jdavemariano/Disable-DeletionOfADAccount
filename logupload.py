@@ -15,9 +15,6 @@ def upload_file_to_s3(file_path, bucket_name):
         # Upload the file with the new name to S3
         s3.upload_file(file_path, bucket_name, new_file_name)
         print(f"Log File uploaded successfully with timestamp: {timestamp}")
-        
-        with open(file_path, 'w') as file:
-            file.truncate(0)
             
         # Delete the local file after successful upload
         os.remove(file_path)
