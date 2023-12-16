@@ -20,7 +20,7 @@
       "inputs": {
         "runCommand": [
           "",
-          "$disabledAccount = Get-ADUser -Filter {Title -eq 'AutoExpireEnabled'} -SearchBase '{{sourceOU}}' -Properties AccountExpirationDate | Where-Object { $_.AccountExpirationDate -ne $null -and $_.AccountExpirationDate -lt (Get-Date) } ",
+          "$disabledAccount = Get-ADUser -Filter {Title -eq 'AutoExpireEnabled' -and Enabled -eq $false} -SearchBase '{{sourceOU}}' -Properties AccountExpirationDate | Where-Object { $_.AccountExpirationDate -ne $null -and $_.AccountExpirationDate -lt (Get-Date) } ",
           "foreach ($account in $disabledAccount){",
           "    Disable-ADAccount -Identity $account.SamAccountName",
           "    Move-ADObject -Identity $account.DistinguishedName -TargetPath '{{destinationOU}}'",
